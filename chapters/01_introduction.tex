@@ -1,15 +1,27 @@
 % !TeX root = ../main.tex
 
 \section{Motivation}
+\label{sec: motivation}
 
 TinyML has obtained more attentions in academy as well as in industries recently. There is huge potential to revolutionize the world when hundreds of billions of embedded devices are able to
-run machine learning applications offline. Nevertheless, given the resource-constrained nature of embedded devices, it still remains a challenge to codesign hardware and software.
+run machine learning applications offline. Nevertheless, given the resource-constrained nature of embedded devices, it still remains a challenge for hardware/software codesign.
 
-\noindent RISC-V is promising in TinyML applications. For one thing, traditional x86 architecture is not power efficient enough compared to RISC-based architecture.
+RISC-V is promising in TinyML applications. For one thing, traditional x86 architecture is not power efficient enough compared to RISC-based architecture.
 For another, Arm-based processors require licensing fees since they are vendor-specific, whereas RISC-V ISA is open-source.
-The TUM EDA chair has developed the RISC-V instruction set simulator ETISS, which features the plug-in functionalities and supports rapid development of customized ISA based on user needs.
 
-\noindent This thesis aims to provide a methodology of profiling TinyML applications in ETISS at various levels of abstraction interactively. The tool is further demonstrated by identifying
+The TUM EDA chair has introduced a virtual prototype framework to facilitate Systems-on-chip (SoC) development of RISC-V architecture. Besides, the chair has developed the open source instruction set simulator ETISS, which features plug-in functionalities and supports rapid development of custom RISC-V extensions. Furthermore, the MLonMCU toolchain and the muRiscvNN kernel library have been introduced to facilitate the deployment and inference of tinyML applications on RISC-V architecture. 
+
+This thesis aims to facilitate interactive performance estimation at various abstraction levels, including function and instruction level. To achieve this, a python tool is developed to bridge the gap between open source profiling visualization tool Kcachegrind and RISC-V executables and ETISS-generated instruction traces, since callgrind does not support RISC-V architecture at the moment. This tool is further demonstrated by using it to identify
 performance bottlenecks in muRiscvNN kernel library. 
 
 \section{Task Definition}
+
+This work will:
+\begin{itemize}
+    \item Conduct
+    \item Acquire
+    \item Develop
+    \item Demonstrate
+\end{itemize}
+
+\section{Structure}
