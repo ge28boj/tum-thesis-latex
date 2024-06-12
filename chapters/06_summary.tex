@@ -1,0 +1,13 @@
+This thesis conceptualized and implemented a python tool that enables profiling of tinyML workloads on RISC-V architecture. And by identifying bottlenecks in muRISCV-NN kernels on the MLPerf tiny benchmark suite, the usefulness of this tool is demonstrated regarding three aspects. First of all, the tool is useful since it provides a quick solution to bridge the gap between RISC-V and the existing versatile GUI kcachegrind. Ideally, valgrind that supports RISC-V architecture can provide broader profiling functionalities. However, it is still under active development and there is still a long way to go. In addition, it is useful since it features a clean and simple interface and code hierarchy that is ready to be integrated into ETISS or MLonMCU toolchain. Last but not least, it is useful as we see great potential of extending its functionality to support different aspects of bottleneck identification and performance profiling.
+
+\section{Future Outlook}
+
+There is huge potential to make the implemented profiling tool more versatile and to facilitate development of more RISC-V custom extensions and machine learning kernels. To realize it, several aspects are worth mentioning:
+
+\begin{itemize}
+    \item \textbf{Support} RISC-V compressed extension such that the tool could be used in more real scenarios.
+    \item \textbf{Support} the collection of cycle counts by leveraging ETISS Performance Estimator.
+    \item \textbf{Develop} new functionalities that are capable of collecting information about memory access pattern and even cache utilization of application programs. Being able to provide those information for profiling helps identifying performance bottleneck in a more fine-grained way.
+    \item \textbf{Integrate} the work into MLonMCU workflow and bring the benefits of the implemented tool to all the users of MLonMCU. 
+    \item \textbf{Open source} the work to RISC-V community since there are only few open-source profiling tools supporting RISC-V architecture, let alone to be simulator-agnostic and with GUI functionality available.  
+\end{itemize}

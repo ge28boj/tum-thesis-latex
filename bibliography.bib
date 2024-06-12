@@ -1,3 +1,4 @@
+
 @inproceedings{hw_sw_codesign,
     author = {El-Moursy, Magdy A. and Sheirah, Ayman and Safar, Mona and Salem, Ashraf},
     title = {Efficient embedded SoC hardware/software codesign using virtual platform},
@@ -55,6 +56,25 @@ with Callgrind and KCachegrind},
     month = {4}
 }
 
+@manual{gprof,
+    author = {Jeffrey Osier},
+    title = {GNU gprof, The GNU Profiler},
+    url = {https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/},
+    year = {1993}
+}
+
+@article{graham1982gprof,
+  title={Gprof: A call graph execution profiler},
+  author={Graham, Susan L and Kessler, Peter B and McKusick, Marshall K},
+  journal={ACM Sigplan Notices},
+  volume={17},
+  number={6},
+  pages={120--126},
+  year={1982},
+  publisher={ACM New York, NY, USA}
+}
+
+
 @manual{pyelftools_manual,
     author = {Eli Bendersky},
     title = {pyelftools user's guide},
@@ -63,6 +83,11 @@ with Callgrind and KCachegrind},
     month = {2}
 }
 
+@manual{riscv_abi,
+    author = {RISC-V Foundation},
+    title = {RISC-V ELF Specification},
+    howpublished = {\url{https://github.com/riscv-non-isa/riscv-elf-psabi-doc/blob/master/riscv-elf.adoc}}
+}
 @inbook{happens-before-relation,
     author = {Lamport, Leslie},
     title = {Time, clocks, and the ordering of events in a distributed system},
@@ -119,6 +144,16 @@ with Callgrind and KCachegrind},
     year = {2004},
 }
 
+@inproceedings{weaver2013linux,
+  title={Linux perf\_event features and overhead},
+  author={Weaver, Vincent M},
+  booktitle={The 2nd international workshop on performance analysis of workload optimized systems, FastPath},
+  volume={13},
+  pages={5},
+  year={2013}
+}
+
+
 @article{valgrind,
     title = {Valgrind: A Program Supervision Framework},
     journal = {Electronic Notes in Theoretical Computer Science},
@@ -140,8 +175,101 @@ with Callgrind and KCachegrind},
     year = {2012},
     month = {8}
 }
-  
 
+@article{banbury2021mlperf,
+  title={Mlperf tiny benchmark},
+  author={Banbury, Colby and Reddi, Vijay Janapa and Torelli, Peter and Holleman, Jeremy and Jeffries, Nat and Kiraly, Csaba and Montino, Pietro and Kanter, David and Ahmed, Sebastian and Pau, Danilo and others},
+  journal={arXiv preprint arXiv:2106.07597},
+  year={2021}
+}
+
+@misc{spike_simulator,
+    author = {RISC-V Foundation},
+    title = {Spike, a RISC-V ISA Simulator},
+    howpublished = {\url{https://github.com/riscv-software-src/riscv-isa-sim}}
+}
+
+@inproceedings{bellard2005qemu,
+  title={QEMU, a fast and portable dynamic translator.},
+  author={Bellard, Fabrice},
+  booktitle={USENIX annual technical conference, FREENIX Track},
+  volume={41},
+  number={46},
+  pages={10--5555},
+  year={2005},
+  organization={California, USA}
+}
+
+@inproceedings{de2010new,
+  title={The new linux’perf’tools},
+  author={De Melo, Arnaldo Carvalho},
+  booktitle={Slides from Linux Kongress},
+  volume={18},
+  pages={1--42},
+  year={2010}
+}
+
+@inproceedings{muriscvnn,
+    author = {Philipp van Kempen and Jefferson Parker Jones and Daniel Mueller-Gritschneder and Ulf Schlichtmann},
+    title = {muRISCV-NN: Challenging Zve32x Autovectorization with TinyML Inference Library for RISC-V Vector Extension},
+    booktitle = {Proceedings of the 21st ACM International Conference on Computing Frontiers Workshops and Special Sessions (CF '24 Companion)},
+    year = {2024}
+}
+
+@article{binkert2011gem5,
+  title={The gem5 simulator},
+  author={Binkert, Nathan and Beckmann, Bradford and Black, Gabriel and Reinhardt, Steven K and Saidi, Ali and Basu, Arkaprava and Hestness, Joel and Hower, Derek R and Krishna, Tushar and Sardashti, Somayeh and others},
+  journal={ACM SIGARCH computer architecture news},
+  volume={39},
+  number={2},
+  pages={1--7},
+  year={2011},
+  publisher={ACM New York, NY, USA}
+}
+
+@article{lattner2020mlir,
+  title={MLIR: A compiler infrastructure for the end of Moore's law},
+  author={Lattner, Chris and Amini, Mehdi and Bondhugula, Uday and Cohen, Albert and Davis, Andy and Pienaar, Jacques and Riddle, River and Shpeisman, Tatiana and Vasilache, Nicolas and Zinenko, Oleksandr},
+  journal={arXiv preprint arXiv:2002.11054},
+  year={2020}
+}
+
+@misc{alexmlir,
+    author={Alex Zinenko},
+    title={Codegen Dialect Overview},
+    note={LLVM Discourse Channel},
+    howpublished={\url{https://discourse.llvm.org/t/codegen-dialect-overview/2723}}
+}
+
+@inproceedings{ETISS,
+    author = {Mueller-Gritschneder, Daniel and Devarajegowda, Keerthikumara and Dittrich, Martin and Ecker, Wolfgang and Greim, Marc and Schlichtmann, Ulf},
+    title = {The extendable translating instruction set simulator (ETISS) interlinked with an MDA framework for fast RISC prototyping},
+    year = {2017},
+    isbn = {9781450354189},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3130265.3138858},
+    doi = {10.1145/3130265.3138858},
+    booktitle = {Proceedings of the 28th International Symposium on Rapid System Prototyping: Shortening the Path from Specification to Prototype},
+    pages = {79–84},
+    numpages = {6},
+    keywords = {instruction set simulator, code generation, RISC-V, ISA},
+    location = {Seoul, South Korea},
+    series = {RSP '17}
+}
+
+@misc{vankempen2023mlonmcu,
+      title={MLonMCU: TinyML Benchmarking with Fast Retargeting}, 
+      author={Philipp van Kempen and Rafael Stahl and Daniel Mueller-Gritschneder and Ulf Schlichtmann},
+      year={2023},
+      eprint={2306.08951},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+
+
+
+  
 
   
 

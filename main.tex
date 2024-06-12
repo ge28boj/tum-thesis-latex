@@ -12,15 +12,15 @@
 % TODO: change thesis information
 \newcommand*{\getUniversity}{Technische Universität München}
 \newcommand*{\getFaculty}{Informatics}
-\newcommand*{\getDegree}{Informatics}
+\newcommand*{\getDegree}{Robotics, Cognition, Intelligence}
 \newcommand*{\getSchool}{Computation, Information and Technology}
-\newcommand*{\getTitle}{Thesis title}
-\newcommand*{\getTitleGer}{Titel der Abschlussarbeit}
+\newcommand*{\getTitle}{RISC-V Instruction Level Profiling in ETISS Simulator}
+\newcommand*{\getTitleGer}{Profiling von RISC-V Instruktionen im ETISS Simulator}
 \newcommand*{\getAuthor}{Liang-Ta Wei}
 \newcommand*{\getDoctype}{Master's Thesis}
 \newcommand*{\getSupervisor}{Philipp van Kempen}
 \newcommand*{\getAdvisor}{Prof. Dr.-Ing. Ulf Schlichtmann}
-\newcommand*{\getSubmissionDate}{Submission date}
+\newcommand*{\getSubmissionDate}{15.06.2024}
 \newcommand*{\getSubmissionLocation}{Munich}
 
 \begin{document}
@@ -34,7 +34,6 @@
 
 \input{pages/title}
 \input{pages/disclaimer}
-\input{pages/acknowledgments}
 \input{pages/abstract}
 \microtypesetup{protrusion=false}
 \tableofcontents{}
@@ -62,7 +61,10 @@
 
 % TODO: add more chapters here
 
-\appendix{}
+\chapter{Appendix}
+\label{chapters:appendix}
+\input{chapters/07_appendix}
+
 
 \microtypesetup{protrusion=false}
 
@@ -70,7 +72,17 @@
 \begin{acronym}
 	\itemsep-.25\baselineskip
 	\acro{TUM}[TUM]{Technical University of Munich}
-	% TODO: add acronyms
+    \acro{EDA}[EDA]{Electronic Design Automation}
+    \acro{TinyML}[TinyML]{Tiny Machine Learning}
+    \acro{ISA}[ISA]{Instruction set architecture}
+    \acro{ETISS}[ETISS]{Extendable Instruction Set Simulator}
+    \acro{SoC}[SoC]{Systems-on-chip}
+    \acro{IR}[IR]{Intermediate Representation}
+    \acro{PDLL}[PDLL]{PDL Language}
+    \acro{JIT}[JIT]{just-in-time}
+    \acro{ELF}[ELF]{Executable and Linkable Format}
+    \acro{ASIP}[ASIP]{application-specific instruction set processor}
+    % TODO: add acronyms
 \end{acronym}
 
 \listoffigures{}

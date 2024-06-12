@@ -3,25 +3,23 @@
 \section{Motivation}
 \label{sec: motivation}
 
-TinyML has obtained more attentions in academy as well as in industries recently. There is huge potential to revolutionize the world when hundreds of billions of embedded devices are able to
-run machine learning applications offline. Nevertheless, given the resource-constrained nature of embedded devices, it still remains a challenge for hardware/software codesign.
+\ac{TinyML} has obtained more attentions in academia as well as in industry recently. There is huge potential to revolutionize the world when hundreds of billions of embedded devices are able to
+run machine learning applications offline. Nevertheless, given the resource-constrained nature of embedded devices, hardware/software co-design still remains a significant challenge.
 
-RISC-V is promising in TinyML applications. For one thing, traditional x86 architecture is not power efficient enough compared to RISC-based architecture.
-For another, Arm-based processors require licensing fees since they are vendor-specific, whereas RISC-V ISA is open-source.
+The RISC-V architecture is promising for \ac{TinyML} applications. For one thing, the traditional x86 architecture is not power efficient enough compared to RISC-based architecture.
+For another, Arm-based processors require licensing fees since they are vendor-specific, whereas the RISC-V \ac{ISA} is open-source.
 
-The TUM EDA chair has introduced a virtual prototype framework to facilitate Systems-on-chip (SoC) development of RISC-V architecture. Besides, the chair has developed the open source instruction set simulator ETISS, which features plug-in functionalities and supports rapid development of custom RISC-V extensions. Furthermore, the MLonMCU toolchain and the muRiscvNN kernel library have been introduced to facilitate the deployment and inference of tinyML applications on RISC-V architecture. 
+The TUM EDA chair has introduced a virtual prototype framework to facilitate the \ac{ASIP} development of RISC-V architecture. In addition, the chair has developed the open source instruction set simulator \ac{ETISS}, which features plug-in functionalities and supports the rapid development of custom RISC-V extensions\cite{ETISS}. Furthermore, the MLonMCU tool\cite{vankempen2023mlonmcu} and muRISCV-NN kernel library\cite{muriscvnn} have been introduced to facilitate the deployment and inference of \ac{TinyML} applications on RISC-V architecture. 
 
-This thesis aims to facilitate interactive performance estimation at various abstraction levels, including function and instruction level. To achieve this, a python tool is developed to bridge the gap between open source profiling visualization tool Kcachegrind and RISC-V executables and ETISS-generated instruction traces, since callgrind does not support RISC-V architecture at the moment. This tool is further demonstrated by using it to identify
-performance bottlenecks in muRiscvNN kernel library. 
+This thesis aims to facilitate interactive performance estimation mainly but not limited at instruction level. Function level and source code level are also made available. To achieve this, a Python tool is developed to bridge the gap between the open source profiling visualization tool kcachegrind and RISC-V executables and \ac{ETISS}-generated instruction traces, since callgrind does not support RISC-V architecture at the moment. This tool is further demonstrated by using it to identify performance bottlenecks in the muRISCV-NN kernel library. 
 
 \section{Task Definition}
 
 This work will:
 \begin{itemize}
-    \item Conduct
-    \item Acquire
-    \item Develop
-    \item Demonstrate
+    \item Investigate state-of-the-art concepts of virtual prototype and performance profiling techniques. 
+    \item Acquire knowledge of RISC-V \ac{ISA}, \ac{ETISS}, ELF format, ML deployment software stack, valgrind, and kcachegrind.
+    \item Develop a tool that support performance profiling in \ac{ETISS} platform with kcachegrind.
+    \item Demonstrate the usefulness of the implemented tool by identifying bottleneck in muRISCV-NN kernels on the MLPerf Tiny Benchmark.
 \end{itemize}
 
-\section{Structure}

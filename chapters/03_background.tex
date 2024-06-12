@@ -1,20 +1,20 @@
 \section{RISC-V ISA}
 
-RISC-V, which stands for the fifth generation of reduced instruction set computer, was first developed by Krste Asanović in 2010 at UC Berkeley.
+RISC-V, which stands for the fifth generation of Reduced Instruction Set computer, was first developed by Krste Asanović and his team in 2010 at UC Berkeley.
 Unlike ARM-based microprocessors, RISC-V is an open-source ISA. Hence, it has been considered "the Linux of microprocessors".
-As a matter of fact, RISC-V is a lot more than that. The groundbreaking innovation lies in its modular design.
+However, RISC-V is much more than that. The groundbreaking innovation lies in its modular design.
 
-For a long time, incremental ISA, including x86 and ARM, has been the industry convention. In other words, architects keep adding instructions but never removing for the sake of backward compatibility.  
-This leads to tremendous complexity in chip design. Besides, hardware costs increase since more silicon areas are required for decode and execution of a wider variety of instructions. And most importantly,
-this monolithic design approach introduces less flexibility. There is the analogy - you pay for the whole buffet, but all you want is salad.
+For a long time, incremental ISAs, including x86 and ARM, have been the industry convention. In other words, architects keep adding instructions but never remove any for the sake of backward compatibility.  
+This leads to tremendous complexity in chip design. Besides, hardware costs increase since more silicon areas are required for decode and execution of a wider variety of instructions. Most importantly,
+this monolithic design approach introduces less flexibility. There is the analogy: you pay for the whole buffet, but all you want is salad.
 
 \subsection{RV32I Base Integer ISA}
-RV32I is the most basic RISC-V ISA, where \texttt{32} indicates 32 bits wide registers and \texttt{I} stands for integer. There are 32 general purpose registers in RV32I, as shown in the upper part of table~\ref{table:riscv_register_calling_convention}. Among those registers, \texttt{x0} is hard-wired to 0, \texttt{x1} is used for holding return address, and \texttt{x10-x17} are used for function arguments.
+RV32I is the most basic RISC-V ISA, where \texttt{32} indicates 32 bits wide registers and \texttt{I} stands for integer. There are 32 general purpose registers in RV32I, as shown in the upper part of \cref{table:riscv_register_calling_convention}. Among these registers, \texttt{x0} is hard-wired to 0, \texttt{x1} is used for holding the return address, and \texttt{x10-x17} are used for function arguments.
 
-As shown in fig~\ref{fig:riscv_base_instruction_format}, there are six types of instruction formats:
+As shown in \Cref{fig:riscv_base_instruction_format}, there are six types of instruction formats:
 
 \begin{itemize}
-    \item \textit{R-type} defines register-register operations. Its \texttt{opcode} is \texttt{0110011}. Operands are taken from registers \texttt{rs1} and \texttt{rs2} and result is written into register \texttt{rd}. Common R-type instructions are \texttt{add}, \texttt{sub}, \texttt{sll}, \texttt{slt}, \texttt{sltu}, \texttt{xor}, \texttt{srl}, \texttt{sra}, \texttt{or}, and \texttt{and}.
+    \item \textit{R-type} defines register-register operations. Its \texttt{opcode} is \texttt{0110011}. Operands are taken from registers \texttt{rs1} and \texttt{rs2} and the result is written into register \texttt{rd}. Common R-type instructions are \texttt{add}, \texttt{sub}, \texttt{sll}, \texttt{slt}, \texttt{sltu}, \texttt{xor}, \texttt{srl}, \texttt{sra}, \texttt{or}, and \texttt{and}.
     
     \item \textit{I-type} defines register-immediate operations. Its \texttt{opcode} is \texttt{0010011}. The 12-bit immediate is sign extended to \texttt{word} and added with register \texttt{rs1}.
     Common I-type instructions are \texttt{addi}, \texttt{slti}, \texttt{sltiu}, \texttt{andi}, \texttt{ori}, and \texttt{xori}. In addition, load instructions, including \texttt{lw}, \texttt{lh}, \texttt{lhu}, \texttt{lb}, and \texttt{lbu}, are also I-type.
@@ -28,7 +28,7 @@ As shown in fig~\ref{fig:riscv_base_instruction_format}, there are six types of 
     \item \texttt{J-type} refers to unconditional jump instruction \texttt{jal} (jump and link). Target address is from adding immediate and current \texttt{pc}. Furthermore, since immediate is 21 bits, it can jump to any 16-bit aligned address \texttt{$\pm$1 MB} relative to current \texttt{pc}.
 \end{itemize}
 
-\begin{table}
+\begin{table}[ht]
     \centering
     \includegraphics[width=.85\linewidth]{figures/RISCV_register_calling_convention.png}
     \caption{RISC-V register calling convention}
@@ -44,11 +44,11 @@ As shown in fig~\ref{fig:riscv_base_instruction_format}, there are six types of 
 
 \subsection{Standard Extensions}
 \begin{itemize}
-    \item M refers to integer multiplication and division extension. For multiplication, there are \texttt{mul}, \texttt{mulh}, \texttt{mulhu}, \texttt{mulhsu}, and \texttt{mulw}. For division, there are \texttt{div}, \texttt{divu}, \texttt{divw}, \texttt{divuw}, \texttt{rem}, \texttt{remu}, \texttt{remw}, and \texttt{remuw}.
+    \item M refers to integer multiplication and division extension.
     
-    \item A refers to atomic extension. There are \texttt{lr} (load-reserved), \texttt{sc} (store-conditional), \texttt{amoswap}, \texttt{amoadd}, \texttt{amoand}, \texttt{amoor}, \texttt{amoxor}, \texttt{amomin}, \texttt{amominu}, \texttt{amomax}, and \texttt{amomaxu}.
+    \item A refers to atomic extension.
     
-    \item C refers to compressed instructions. Around 50\%-60\% of RISC-V instructions can be compressed. This results in code size reduction of 25\%-30\%.\cite{riscv_manual} 
+    \item C refers to compressed instructions. 
     
     \item F/D refer to single-precision floating point and double-precision floating point extension respectively.
     
@@ -60,18 +60,18 @@ As shown in fig~\ref{fig:riscv_base_instruction_format}, there are six types of 
 \section{ETISS}
 
 ETISS, which stands for Extendable Translating Instruction Set Simulator, is developed by TUM EDA chair.
-As shown in Figure~\ref{fig:etiss_structure}, it is a C++ instruction set simulator based on dynamic binary translation technique. Furthermore, it features Plugin mechanism for adding new functionalities flexibly.
+As shown in \cref{fig:etiss_structure}, it is a C++ instruction set simulator based on dynamic binary translation technique. Furthermore, it features plugin mechanism for adding new functionalities flexibly.
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering{\includegraphics[scale=.4]{figures/ETISS_overview.png}}
-    \caption{ETISS structure}
+    \caption{ETISS structure\cite{ETISS}}
     \label{fig:etiss_structure}
 \end{figure}
 
-The following will describe more details on dynamic binary translation and Plugin mechanism respectively.
+The following is written according to \cite{ETISS}, which will describe more details on dynamic binary translation and plugin mechanism respectively.
 
 \subsection{Binary Translation}
-Figure~\ref{fig:etiss_binary_translation} illustrates the workflow of dynamic binary translation in ETISS.
+\Cref{fig:etiss_binary_translation} illustrates the workflow of dynamic binary translation in ETISS.
 First of all, translation block is the atomic unit in binary translator. Program counter is used to check whether the corresponding translation block exists in translation cache.
 If not, instructions are fetched starting from current program counter such that a new translation block is loaded. Then, the translation block is translated into C code.
 The C code snippet that represents the behaviour of all instructions in a translation block is wrapped as a function in C. The function is compiled into shared library object and cached.
@@ -79,16 +79,17 @@ Whenever it is needed, it is loaded into ETISS main loop for execution.
 
 % Exception handling, interrupts
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering{\includegraphics[scale=.45]{figures/ETISS_binary_translation.png}}
-    \caption{ETISS Binary Translation}
+    \caption{ETISS Binary Translation\cite{ETISS}}
     \label{fig:etiss_binary_translation}
 \end{figure}
 
 \subsection{Plugin Mechanism}
 Plugins not only support the core binary translation process but also add functionalities to ETISS based on user's needs without hacking the core ETISS source code.
-There are mainly six types of Plugins. For most of the types, an arbitrary number of Plugins can be registered.
+There are mainly six types of plugins. For most of the types, an arbitrary number of plugins can be registered.
 
+\medskip
 \textbf{TranslationPlugin}: TranslationPlugins are executed before translating block. They can be used to add additional C code into translation block and to record the change of state that developers are interested in. Thus, for example, instruction tracing functionality is implemented as TranslationPlugin.
 
 \textbf{CoroutinePlugin}: CoroutinePlugins are executed before the execution of tranlation block. They are mainly used to model closely-coupled peripherals, supporting
@@ -100,22 +101,22 @@ interrupt handling and timer functionality.
 
 \textbf{ISAPlugin}: One ISAPlugin is registered for each ETISS core. It defines and specifies how instructions are translated and executed in ETISS main loop, including instruction behaviour, instruction binary encoding, and register conventions.
 
-\textbf{JITPlugin}: One JITPlugin is registered for an ETISS instance. It provides the Just-In-Time (JIT) compilation functionality, which compiles C code from translation block into shared libraries.
+\textbf{JITPlugin}: One JITPlugin is registered for an ETISS instance. It provides \ac{JIT} compilation functionality, which compiles C code from translation block into shared libraries.
 
 \section{ELF File}
-ELF, which stands for Executable and Linkable Format, is the standard format for executable, relocatable, shared object, and core dump on UNIX-like operating system. The followings are the main components in ELF file.
+\ac{ELF} is the standard format for executable, relocatable, shared object, and core dump on UNIX-like operating system. The followings are the main components in \ac{ELF} file.
 
 \subsection{ELF File Header}
-\label{subsec:ELF}
+\label{sec:ELF}
 
-ELF file header contains general information of the binary and can be extracted with command line \texttt{\$readelf --header}. An example is shown in fig~\ref{fig:elf_header_example}. It starts with ELF magic number 0x7f and the "ELF" string in ASCII format. And \texttt{Type} can be \texttt{EXEC}, \texttt{REL}, \texttt{DYN}, and \texttt{CORE}. Besides, it indicates pointers to \textit{program headers} and \textit{section headers} and specifies entry point address for executable.
+\ac{ELF} file header contains general information of the binary and can be extracted with command line \texttt{\$readelf --header}. An example is shown in \cref{fig:elf_header_example}. It starts with \ac{ELF} magic number 0x7f and the "ELF" string in ASCII format. And \texttt{Type} can be \texttt{EXEC}, \texttt{REL}, \texttt{DYN}, and \texttt{CORE}. Besides, it indicates pointers to \textit{program headers} and \textit{section headers} and specifies entry point address for executable.
 
-For RISC-V architecture, the \texttt{Flags} field is especially important since it indicates which RISC-V extensions are used and which ABIs should be respected. The layouts are shown in table~\ref{table:elf_header_flags_layout}. 
+For RISC-V architecture, the \texttt{Flags} field is especially important since it indicates which RISC-V extensions are used and which ABIs should be respected. The layouts are shown in \cref{table:elf_header_flags_layout}. 
 
 \begin{table}
     \centering
     \includegraphics[width=.85\linewidth]{figures/ELF_header_flags_layout.png}
-    \caption{Layout of \texttt{Flags} of RISC-V Architecture}
+    \caption{Layout of \texttt{Flags} of RISC-V Architecture\cite{riscv_abi}}
     \label{table:elf_header_flags_layout}
 \end{table}
 
@@ -129,36 +130,36 @@ For RISC-V architecture, the \texttt{Flags} field is especially important since 
 \begin{figure}
     \centering
     \includegraphics[width=.85\linewidth]{figures/ELF_Header.png}
-    \caption{Example of ELF File Header}
+    \caption{Example of \ac{ELF} File Header}
     \label{fig:elf_header_example}
 \end{figure}
 
 \subsection{Sections and Segments}
-ELF is versatile. For linker, sections in ELF are the source of truth. Meanwhile, segments in ELF describe how the binary is processed by loader and kernel. Being said, segments and sections are not orthogonal but interconnected. 
+\ac{ELF} is versatile. For linker, sections in ELF are the source of truth. Meanwhile, segments in \ac{ELF} describe how the binary is processed by loader and kernel. Being said, segments and sections are not orthogonal but interconnected. 
 
 \subsubsection{Segments}
-As shown in fig~\ref{fig:elf_program_headers_example}, there are eight fields describing each segment:
+As shown in \cref{fig:elf_program_headers_example}, there are eight fields describing each segment:
 
 \begin{itemize}
     \item \texttt{Type} notifies operating system to load the segment if it is labeled as \texttt{LOAD}. Besides, \texttt{PHDR} means program header and \texttt{INTERP} points out the \textit{dynamic loader} for binary file.
     
-    \item \texttt{Offset} refers to byte offset of the segment in ELF file. Linker and loader rely on this information to retrieve correct segment data.
+    \item \texttt{Offset} refers to byte offset of the segment in \ac{ELF} file. Linker and loader rely on this information to retrieve correct segment data.
     
     \item \texttt{VirtAddr} and \texttt{PhysAddr} specify where loadable segments should be placed in operating system address space.
     
-    \item \texttt{FileSiz} refers to byte size of the segment in ELF.
+    \item \texttt{FileSiz} refers to byte size of the segment in \ac{ELF}.
     
-    \item \texttt{MemSiz} refers to byte size of the segment in memory. If \texttt{MemSiz} is greater than \texttt{FileSize}, it means some data is zero-filled and need not be placed in ELF.
+    \item \texttt{MemSiz} refers to byte size of the segment in memory. If \texttt{MemSiz} is greater than \texttt{FileSize}, it means some data is zero-filled and need not be placed in \ac{ELF}.
 
     \item \texttt{Flg} specifies permissions. \texttt{R} means readable, \texttt{W} means writable, and \texttt{X} means executable.
     
-    \item \texttt{Align} specifies alignment of the segment in memory. Typically, it means the page size of operating system. In the case of fig~\ref{fig:elf_program_headers_example}, it is 4 KB. 
+    \item \texttt{Align} specifies alignment of the segment in memory. Typically, it means the page size of operating system. For the example shown in \cref{fig:elf_program_headers_example}, it is 4 KB. 
 \end{itemize}
 
 \begin{figure}
     \centering
     \includegraphics[width=.85\linewidth]{figures/ELF_program_header.png}
-    \caption{Example of ELF File Program Header}
+    \caption{Example of \ac{ELF} File Program Header}
     \label{fig:elf_program_headers_example}
 \end{figure}
 
@@ -169,13 +170,20 @@ As shown in fig~\ref{fig:elf_program_headers_example}, there are eight fields de
     \item \texttt{.rodata} stores read-only data.
     \item \texttt{.data} stores initialized and writable data.
     \item \texttt{.bss} stores zero-initialized and writable data.
-    \item \texttt{.symtab} refers to symbol table that stores the mapping between symbols and their locations in ELF, as shown in fig~\ref{fig:elf_symbol_table}. As section~\ref{subsec: elf_info_extraction} will give more details, it is useful for extracting mapping of functions to program counter ranges.
+    \item \texttt{.symtab} refers to symbol table that stores the mapping between symbols and their locations in \ac{ELF}, as shown in \cref{fig:elf_symbol_table}. \Cref{sec:elf_info_extraction} will discuss more about its importance.
     \item \texttt{.debug\_info} stores main debug information in DWARF format. It appears only when the binary is compiled with \texttt{-g} option.
     \item \texttt{.debug\_line} stores the mapping between program counter and source code line. It also appears only when the binary is compiled with \texttt{-g} option.
 \end{itemize}
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=.85\linewidth]{figures/ELF_symtab.png}
+    \caption{Example of \ac{ELF} symbol table}
+    \label{fig:elf_symbol_table}
+\end{figure}
+
 \subsection{DWARF Format}
-DWARF format is the most common debugging format. It is of great importance since GNU debugger (GDB) and LLVM debugger (LLDB) heavily rely on information stored in DWARF-related ELF sections.
+DWARF format is the most common debugging format. It is of great importance since GNU debugger (GDB) and LLVM debugger (LLDB) heavily rely on information stored in DWARF-related \ac{ELF} sections.
 
 DWARF distills information about application program into a tree structure. The tree structure contains multiple \textbf{debugging information entries} (DIEs), which is available by giving the command line \texttt{\$readelf --debug-dump=info <elf file>}. A DIE may have parent DIE, siblings DIEs, or children DIEs. Each DIE contains a \textit{tag} and several \textit{attributes}. \textit{Tag} is the label of a DIE. It can be scope-related, object-related, or type-related. 
 
@@ -187,182 +195,167 @@ DWARF distills information about application program into a tree structure. The 
     \item Common type-related \textit{tags}: \textit{base\_type}, \textit{typedef}, \textit{array\_type}, \textit{structure\_type}, \textit{union\_type}, \textit{class\_type}, \textit{enumeration\_type}, \textit{subroutine\_type}, \textit{string\_type}, and \textit{subrange\_type}.
 \end{itemize}
 
-As for \texttt{attributes}, they may contain constants, variables, or reference to another DIE.~\cite{dwarf}. Several examples are as follows:
+As for \texttt{attributes}, they may contain constants, variables, or reference to another DIE~\cite{dwarf}. Several examples are as follows:
 
 \begin{itemize}
-    \item \textit{DW\_TAG\_compile\_unit}: As shown in \ref{fig:dwarf_compile_unit}, there are \textit{producer}, \textit{language}, \textit{name}, \textit{comp\_dir}, \textit{low\_pc}, \textit{high\_pc}, \textit{stmt\_list}.
+    \item \textit{DW\_TAG\_compile\_unit}: As shown in \cref{fig:dwarf_compile_unit}, there are \textit{producer}, \textit{language}, \textit{name}, \textit{comp\_dir}, \textit{low\_pc}, \textit{high\_pc}, \textit{stmt\_list}.
     
-    \item \textit{DW\_TAG\_subprogram}: As shown in \ref{fig:dwarf_subprogram}, there are \textit{external}, \textit{name}, \textit{decl\_file}, \textit{decl\_line}, \textit{decl\_column}, \textit{low\_pc}, \textit{high\_pc}, \textit{frame\_base}, \textit{sibling}.
+    \item \textit{DW\_TAG\_subprogram}: As shown in \cref{fig:dwarf_subprogram}, there are \textit{external}, \textit{name}, \textit{decl\_file}, \textit{decl\_line}, \textit{decl\_column}, \textit{low\_pc}, \textit{high\_pc}, \textit{frame\_base}, \textit{sibling}.
 
-    \item \textit{DW\_TAG\_inlined\_subroutine}: As shown in \ref{fig:dwarf_inlined_subroutine}, there are \textit{abstract\_origin}, \textit{entry\_pc}, \textit{ranges}, \textit{call\_file}, \textit{call\_line}, \textit{call\_column}.
+    \item \textit{DW\_TAG\_inlined\_subroutine}: As shown in \cref{fig:dwarf_inlined_subroutine}, there are \textit{abstract\_origin}, \textit{entry\_pc}, \textit{ranges}, \textit{call\_file}, \textit{call\_line}, \textit{call\_column}.
 
-    \item \textit{DW\_TAG\_base\_type}: As shown in \ref{fig:dwarf_base_type}, there are \textit{byte\_size}, \textit{encoding}, and \textit{name}.
+    \item \textit{DW\_TAG\_base\_type}: As shown in \cref{fig:dwarf_base_type}, there are \textit{byte\_size}, \textit{encoding}, and \textit{name}.
 \end{itemize}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.85\linewidth]{figures/ELF_section_header.png}
-    \caption{Example of ELF File Section Header}
-    \label{fig:elf_section_headers_example}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.8\linewidth]{figures/ELF_symtab.png}
-    \caption{Example of ELF file symbol table}
-    \label{fig:elf_symbol_table}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.9\linewidth]{figures/DWARF_compile_unit.png}
-    \caption{Example of DWARF compile unit}
-    \label{fig:dwarf_compile_unit}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.75\linewidth]{figures/DWARF_subprogram.png}
-    \caption{Example of DWARF subprogram}
-    \label{fig:dwarf_subprogram}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.75\linewidth]{figures/DWARF_inlined_subroutine.png}
-    \caption{Example of DWARF inlined subroutine}
-    \label{fig:dwarf_inlined_subroutine}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.75\linewidth]{figures/DWARF_base_type.png}
-    \caption{Example of DWARF base type}
-    \label{fig:dwarf_base_type}
-\end{figure}
 
 \subsection{Line Number Table}
-\label{subsec:line_table}
+\label{sec:line_table}
 
-Line number table contains the mapping between program counter and corresponding source code. It is stored in ELF \texttt{.debug\_line} section, which is available by giving command line \texttt{\$readelf --debug-dump=line <elf file>}. There are three main components in line number table, namely \textit{directory table}, \textit{file name table}, and \textit{line number statement}.
-
-\begin{itemize}
-    \item \textit{Directory table and File name table}: As shown in \ref{fig:dwarf_debug_prologue}, \texttt{File name table} together with \texttt{directory table} clearly show the files and their indices in each directory.
-    
-    \item \textit{Line number statement}: 
-\end{itemize}
+Line number table contains the mapping between program counter and corresponding source code. It is stored in \ac{ELF} \texttt{.debug\_line} section, which is available by giving command line \texttt{\$readelf --debug-dump=line <elf file>}. There are three main components in line number table, namely \textit{directory table}, \textit{file name table}, and \textit{line number statement}.
 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=.95\linewidth]{figures/DWARF_debug_prologue.png}
-    \caption{Example of DWARF directory table and file name table}
-    \label{fig:dwarf_debug_prologue}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.85\linewidth]{figures/DWARF_debug_main.png}
-    \caption{Example of DWARF line number statement}
-    \label{fig:dwarf_debug_main}
-\end{figure}
 
 
 \section{Machine Learning Deployment}
-Open source deep learning frameworks, such as PyTorch and Tensorflow, are widely known to end users. In contrast, the underlying software stacks that deploy deep learning workloads on diverse hardware backends are less known but extremely crucial. To be more concrete, it is the so-called machine learning compiler that deals with the huge gap between high-level computational graph and binary executable. The following are two widely-used machine learning compiler frameworks.
+Open source deep learning frameworks, such as PyTorch and Tensorflow, are widely known to end users. In contrast, the underlying software stacks that deploy deep learning workloads on diverse hardware backends are less known but extremely crucial. To be more concrete, it is the so-called machine learning compiler that deals with the huge gap between high-level computational graphs and binary executables. The following are two widely-used machine learning compiler frameworks.
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=1\linewidth]{figures/TVM_compilation_flow.png}
+    \includegraphics[width=\linewidth]{figures/TVM_compilation_flow.png}
     \caption{Compilation Flow of TVM}
     \label{fig:tvm_compilation_flow}
 \end{figure}
 
 \subsection{TVM}
-TVM was developed by a research group at the University of Washington and has evolved into one of the most popular open-source machine learning compiler frameworks. Figure~\ref{fig:tvm_compilation_flow} clearly shows the compilation flow of TVM and its key data structures.
+TVM was developed by a research group at the University of Washington and has evolved into one of the most popular open-source machine learning compiler frameworks. \Cref{fig:tvm_compilation_flow} shows its compilation flow and key data structures.
 
-Regarding key data structures, there are two types of intermediate representation (IR), Relay IR and Tensor IR. Relay IR is a high-level functional frontend IR that aims to represent deep learning workloads as computational graphs. On the other hand, Tensor IR is a low-level backend IR for code generation. It represents detailed information about target-specific optimizations on loop structures, memory access patterns, and vector/tensor instructions.
+Regarding key data structures, there are two types of \ac{IR}: Relay IR and Tensor IR. Relay IR is a high-level functional frontend IR that aims to represent deep learning workloads as computational graphs. On the other hand, Tensor IR is a low-level backend IR for code generation. It represents detailed information about target-specific optimizations on loop structures, memory access patterns, and vector/tensor instructions.
 
-The compilation flow is described in the following.
+The compilation flow is described as follows.
 \begin{enumerate}
-    \item It starts with the import of deep learning models of various types and from different frameworks, such as onnx, Tensorflow, PyTorch, and TFLite. The input model is transformed and stored as Relay IRModule.
-    \item A collection of Relay passes are responsible for graph-level optimizations. Graph-level optimizations typically include constant-folding, shape inference, canonicalization, dead code elimination, operator fusion and data layout transformation. \textit{Constant-folding} pass identifies graph nodes, of which inputs and outputs are known, precomputes them, then propagates constants through the graph. \textit{Shape inference} pass aims to convert dynamic shapes into static shapes by inferring the inputs and outputs of graph nodes. \textit{Operator fusions} pass aims to fuse multiple operators, minimizing unnecessary data transfer. The predefined seven types of operator, namely elementwise, broadcasting, injective, communicative reduction, complex, tuple, opaque, build the basics of the algorithm.
-    \textit{Data layout transformation} pass transforms data layouts into what hardware backend expects or prefers.
-    \item AutoTVM is responsible for optimizations that require design-space explorations, such as loop tiling, memory latency hiding, tensorization and many more. In general, the goal is to increase data reuse on the specified hardware backend. However, the fact that there are more and more new machine learning hardware makes the approach of handcrafting each target's characteristics unrealistic. The optimizations in AutoTVM are led by search-based or learning-based algorithms.
-    \item 
-    
+    \item It starts with the import of deep learning models of various types and from different frameworks, such as onnx, Tensorflow, PyTorch, and TFLite. The input model is transformed and stored as a Relay IRModule.
+    \item A collection of Relay passes are responsible for graph-level optimizations. Graph-level optimizations typically include constant-folding, shape inference, canonicalization, dead code elimination, operator fusion and data layout transformation.
+    \item AutoTVM is responsible for optimizations that require design-space explorations, such as loop tiling, memory latency hiding, tensorization and many more. The optimizations in AutoTVM are typically led by search-based or learning-based algorithms.
 \end{enumerate}
 
 \subsection{MLIR}
-MLIR was introduced by Chris Lattner at Google. It is widely used in different domains, including not only machine learning deployment but also quantum computing and query compilation. The main features of MLIR are (1) the flexibility to perform progressive lowering and optimizations at unfixed levels of abstraction, (2) the flexibility to define custom intermediate representation, which is called dialect, and (3) the flexibility to define rewrite patterns in a declarative way.
+MLIR was introduced by Chris Lattner and his team at Google\cite{lattner2020mlir}. It is used not only for machine learning deployment but also for quantum computing and query compilation. The main features of MLIR are (1) the flexibility to perform progressive lowering and optimizations at unfixed levels of abstraction, (2) the flexibility to define custom intermediate representation, and (3) the flexibility to define rewrite patterns in a declarative way.
 
-\subsubsection{IR Design}
-An example in figure~\ref{fig:mlir_ir_design} provides an overview of IR design in MLIR. The main components of IR design are dialect, operation, attribute, region, and location information.
-
-\begin{itemize}
-    \item \textit{Operation} is the atomic entity in IR. The operation shown in figure~\ref{fig:mlir_ir_design} is \textit{conv2d}. It takes operands \textit{\%input}, \textit{\%filter}, and \textit{\%bias} with types \textit{tensor<1x225x225x3xf32>}, \textit{tensor<32x3x3x3xf32>}, and \textit{tensor<32xf32>} respectively. An operation can have one or more outputs. In this case, it returns \textit{\%0} with type \textit{\%tensor<1x112x112x32xf32>}.
-    \item \textit{Attribute} represents compile-time static information of an operation instance. For \textit{conv2d} operation instance in figure~\ref{fig:mlir_ir_design}, attributes are the brace-enclosed key value pairs \textit{\{dilation = [1, 1], pad = [0, 0, 0, 0], stride = [2, 2]\}}. They are kept as a dictionary from string names to underlying values by operation instance. Besides, all attributes are typed.
-    \item \textit{Region} enables nested structure inside operation. As illustrated in figure~\ref{fig:mlir_ir_region}, The top-level \textit{for} operation contains a region, where another \textit{for} operation and a terminator \textit{yield} operation exist. Being said, region contains a list of operations, which may also contain regions. This is especially useful for defining structure such as control flow.
-    \item \textit{Location information} preserves the source information during the lowering and optimizations process. It is useful for debugging and also for understanding how lowering and optimizations actually work on each operation. 
-    \item \textit{Type} is strictly attached to each value in MLIR. There are standard types, including integer, floating point, tensor, vector, memref, tuple and many more. Besides, MLIR type system is extensible to custom dialects and foreign dialects, such as LLVM IR dialect and SPIR-V dialect.
-\end{itemize}
-
-Dialect is the container for the above components. It provides granularity for reasoning about the level of abstraction. Common MLIR dialects are shown in figure~\ref{fig:mlir_dialects_overview}. From a high level perspective, MLIR dialects can be categorized through \textit{tensor/buffer} and \textit{payload/structure} axes. \textit{Tensor/buffer} axis indicates whether the dialect of interest mainly deals with \textit{tensor} or \textit{buffer}. The former is typically seen in ML frameworks, whereas the latter is much more relevant to actual memory access. As a result, bufferization is the core of progressive lowering in MLIR, meaning that high-level dialects, such as \textit{onnx-mlir}, \textit{torch-mlir} and \textit{tosa}, are progressively bufferized into lower-level dialects, including \textit{linalg},\textit{memref}, and \textit{arith}. \textit{Payload/structure} axis distinguishes between \textit{what} or \textit{how} computations should be performed. For example, tosa dialect supports common machine learning operators as its operations. However, it doesn't specify how those operators should actually be performed. On the other hand, linalg dialect represents how computations are performed on the structure of interest.
-
-\subsubsection{IR Infrastructure}
-
-IR infrastructure is the core basis that supports IR design. It provides not only great extensiblity to custom dialect design, but also simplifies the usage of MLIR main functionalities from user perspective.
-
-\begin{itemize}
-    \item \textit{Operation Descriptions} is supported through TableGen in MLIR. Compared to the usage of C++ template, it is much more intuitive regarding programability, as shown in figure~\ref{fig:mlir_ods}. Moreover, the table-driven manner keeps all the information about the operation of interest in one place such that helper functions generation, verification and analysis for can be done easily.
-    
-    \item \textit{Rewrite Patterns Declaration} is crucial in MLIR since optimization and lowering rely on this mechanism. The PDL language (PDLL) is a frontend declarative DSL dedicated to pattern matching and rewrite as shown in figure~\ref{fig:mlir_pdll}.
-    
-    \item \textit{Verifiers} enforce the structure and semantics of IR to be aligned with specification. For example, types should match and terminator operation should exist at the end of each region.
-\end{itemize}
-
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics[width=1.\linewidth]{figures/MLIR_IR_design.png}
     \caption{MLIR IR Example}
     \label{fig:mlir_ir_design}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=1.\linewidth]{figures/MLIR_IR_region.png}
-    \caption{Region in MLIR IR}
-    \label{fig:mlir_ir_region}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{figures/MLIR_dialect_overview.png}
-    \caption{Overview of MLIR Dialects}
-    \label{fig:mlir_dialects_overview}
-\end{figure}
-
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/MLIR_ODS.png}
     \caption{Example of Defining Custom Operation with ODS}
     \label{fig:mlir_ods}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\linewidth]{figures/MLIR_PDLL.png}
     \caption{Example of Declaring Rewrite Patterns with MLIR PDLL}
     \label{fig:mlir_pdll}
 \end{figure}
 
+
+\subsubsection{IR Design}
+An example in \cref{fig:mlir_ir_design} provides an overview of IR design in MLIR. The main components of IR design are dialect, operation, attribute, region, and location information.
+
+\begin{itemize}
+    \item \textit{Operation} is the atomic entity in IR. The operation shown in \cref{fig:mlir_ir_design} is \textit{conv2d}. It takes operands \textit{\%input}, \textit{\%filter}, and \textit{\%bias} with types \textit{tensor<1x225x225x3xf32>}, \textit{tensor<32x3x3x3xf32>}, and \textit{tensor<32xf32>} respectively. An operation can have one or more outputs. In this case, it returns \textit{\%0} with type \textit{\%tensor<1x112x112x32xf32>}.
+    \item \textit{Attribute} represents compile-time static information of an operation instance. For \textit{conv2d} operation instance in \cref{fig:mlir_ir_design}, attributes are the brace-enclosed key value pairs \textit{\{dilation = [1, 1], pad = [0, 0, 0, 0], stride = [2, 2]\}}. They are kept as a dictionary from string names to underlying values by operation instance. Besides, all attributes are typed.
+    \item \textit{Region} enables nested structure inside operation. As illustrated in \cref{fig:mlir_ir_region}, The top-level \textit{for} operation contains a region, where another \textit{for} operation and a terminator \textit{yield} operation exist. Being said, region contains a list of operations, which may also contain regions. This is especially useful for defining structure such as control flow.
+    \item \textit{Location information} preserves the source information during the lowering and optimizations process. It is useful for debugging and also for understanding how lowering and optimizations actually work on each operation. 
+    \item \textit{Type} is strictly attached to each value in MLIR. There are standard types, including integer, floating point, tensor, vector, memref, tuple and many more. Besides, MLIR type system is extensible to custom dialects and foreign dialects, such as LLVM IR dialect and SPIR-V dialect.
+    \item \textit{Dialect} is the container for the above components. It provides granularity for reasoning about the level of abstraction. Common MLIR dialects are shown in \cref{fig:mlir_dialects_overview}. From a high level perspective, MLIR dialects can be categorized through \textit{tensor/buffer} and \textit{payload/structure} axes. \textit{Tensor/buffer} axis indicates whether the dialect of interest mainly deals with \textit{tensor} or \textit{buffer}. The former is typically seen in ML frameworks, whereas the latter is much more relevant to actual memory access. Hence, bufferization is the core of progressive lowering in MLIR. On the other hand, \textit{Payload/structure} axis distinguishes between \textit{what} or \textit{how} computations should be performed\cite{alexmlir}.
+\end{itemize}
+
+\subsubsection{IR Infrastructure}
+
+\ac{IR} infrastructure is the core basis that supports \ac{IR} design. It provides not only great extensibility to custom dialect design, but also simplifies the usage of MLIR main functionalities from user perspective.
+
+\begin{itemize}
+    \item \textit{Operation Descriptions} is supported through TableGen in MLIR. Compared to the usage of C++ template, it is much more intuitive regarding programmability, as shown in \cref{fig:mlir_ods}. Moreover, the table-driven manner keeps all the information about the operation of interest in one place such that helper functions generation, verification and analysis for can be done easily.
+    
+    \item \textit{Rewrite Patterns Declaration} is crucial in MLIR since optimization and lowering rely on this mechanism. \ac{PDLL} is a frontend declarative DSL dedicated to pattern matching and rewrite as shown in \cref{fig:mlir_pdll}.
+    
+    \item \textit{Verifiers} enforce the structure and semantics of IR to be aligned with specification. For example, types should match and terminator operation should exist at the end of each region.
+\end{itemize}
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.\linewidth]{figures/MLIR_IR_region.png}
+    \caption{Region in MLIR IR}
+    \label{fig:mlir_ir_region}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/MLIR_dialect_overview.png}
+    \caption{Overview of MLIR Dialects\cite{alexmlir}}
+    \label{fig:mlir_dialects_overview}
+\end{figure}
+
+\section{Gprof}
+Gprof is a classic profiling tool that belongs to GNU toolchain. Instrumentation and statistical sampling techniques are both used in its internals. The instrumentation routine \texttt{mcount} is added to each function of application program. At runtime, it will be triggered whenever each instrumented function is called, collecting data of caller-callee relationships with the help of stack frame. Additionally, an underlying function \texttt{\_mcount\_internal} maintains the in-memory call graph.
+
+A special startup routine \texttt{monstartup} is set up for statistical sampling. At runtime, the program counter is inspected periodically for its location and the results are stored into a histogram. This provides users the information of how much time is spent in each function. At the end of runtime, a routine \texttt{mcleanup} is responsible for dumping all the collected data into an output file, by default \texttt{gmon.out}.
+
+\subsection{Usage}
+The usage of gprof includes three steps:
+
+\begin{enumerate}
+    \item Compile the application program with \texttt{-pg} flag. This step adds the instrumentation routine \texttt{mcount} properly.
+    \item Execute the binary as usual. Afterwards, the \texttt{gmon.out} file is generated in the same directory. It contains profiling result but it is not human-readable.
+    \item Run \texttt{gprof} command in format of \texttt{gprof <binary\_executable> gmon.out}. This step interprets \texttt{gmon.out} and generates human-readable information, including flat profile and call graph.
+\end{enumerate}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/gprof_flat_profile.png}
+    \caption{Gprof's result: flat profile\cite{gprof}}
+    \label{fig:gprof_flat_profile}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/gprof_call_graph.png}
+    \caption{Gprof's result: call graph\cite{gprof}}
+    \label{fig:gprof_call_graph}
+\end{figure}
+
+\subsection{Results}
+\texttt{Gprof} outputs different kinds of results. The following figures for showing examples are from the official gprof manual\cite{gprof}. 
+
+\begin{itemize}
+    \item \textbf{Flat profile} shows how much time is spent in each function.
+    \item \textbf{Call graph} shows the time spent in each function and its children functions.  
+\end{itemize}
+
+\subsection{Limitations}
+Despite it being a classic profiling tool, there are several limitations on the tool:
+
+\begin{itemize}
+    \item Profiling overheads is not negligible since instrumentation technique is used.
+    \item Statistical sampling only provides a coarse-grained view of the time spent in each function.
+    \item Shared libraries can hardly be profiled correctly since symbol resolution is nontrivial in this case.
+    \item Multi-threaded application programs are supported in a very limited way.
+\end{itemize}
+
+Additionally, in the scope of this work, \texttt{gprof} was initially considered to be a candidate solution. However, it is nontrivial to fully integrate gprof's instrumentation routines with the semihosting mechanism of virtual prototype. 
+
 \section{Valgrind}
-Valgrind is a widespread software tool for profiling and debugging. To put it in a simple way, it is a virtual machine. The \textit{core} part includes a just-in-time (JIT) compiler and some reimplementations of glibc that deal with signal handling and thread scheduling, whereas the \textit{skin} part is similar to plugin. Custom \textit{skins} can be developed to supervise the aspect of program execution of interest, as long as the \textit{core/skin} interface is respected. Some widely known \textit{skins} are \textit{Memcheck}, \textit{Helgrind}, \textit{ThreadSanitizer}, \textit{Massif}, \textit{Cachegrind}, and \textit{Callgrind}.
+Valgrind is a widespread software tool for profiling and debugging. To put it in a simple way, it is a virtual machine. The \textit{core} part includes a \ac{JIT} compiler and some re-implementations of glibc that deal with signal handling and thread scheduling, whereas the \textit{skin} part is similar to plugin. Custom \textit{skins} can be developed to supervise the aspect of program execution of interest, as long as the \textit{core/skin} interface is respected. Some widely known \textit{skins} are \textit{Memcheck}, \textit{Helgrind}, \textit{ThreadSanitizer}, \textit{Massif}, \textit{Cachegrind}, and \textit{Callgrind}.
 
 \subsection{Core}
 
 \begin{itemize}
-    \item JIT compilation: Valgrind internals use \textit{Ucode} as intermediate representation. During binary translation, each basic block is (1) translated to \textit{UCode} format~\ref{fig:valgrind_UCode}, (2) optimized, (3) added with instrumentation, then (3) translated back to x86 instructions~\ref{fig:valgrind_UCode_back}.
+    \item \ac{JIT} compilation: Valgrind internals use \textit{Ucode} as intermediate representation. During binary translation, each basic block is (1) translated to \textit{UCode} format \cref{fig:valgrind_UCode}, (2) optimized, (3) added with instrumentation, then (3) translated back to x86 instructions \cref{fig:valgrind_UCode_back}.
     \item Signal Handling: Valgrind intercepts system calls related to signal handling. This way, it can not only fully control application program, but can also mask signals of interest for \textit{skins}.
     \item Thread Scheduling: The \textit{core} has its implementation of pthread functionality. It fully controls thread scheduling, preemption, and synchronization of application program.
 \end{itemize}
@@ -385,7 +378,7 @@ Valgrind is a widespread software tool for profiling and debugging. To put it in
 Core/skin interface specifies the APIs for users to develop their own \textit{skins}. Concretely, \textit{vgSkin\_pre\_clo\_init()}, \textit{vgSkin\_post\_clo\_init()}, \textit{vgSkin\_instrument()}, and \textit{vgSkin\_fini()} are the necessary functions of a \textit{skin}. In addition, there are extra structure fields in a \textit{skin} specifying the \textit{core} services, such as error handling, that it wants to subscribe and the events happening in the \textit{core}, such as memory allocation, that it wants to observe. In a nutshell, the design of core/skin interface provides great modularity and extensibility.
 
 \subsection{Common \textit{Skins}}
-\label{subsec:callgrind}
+\label{sec:callgrind}
 
 \begin{itemize}
     \item \textit{Memcheck} is a memory error detection tool for C/C++ applications, which is capable of reporting memory leaks and illegal memory access in details. This is achieved by maintaining the shadow memory. It represents the real memory with additional \textit{valid-value} and \textit{valid-address} states for each bit. During read/write access or memory allocation, these states are modified accordingly and consulted for errors.
@@ -403,35 +396,36 @@ Core/skin interface specifies the APIs for users to develop their own \textit{sk
 \end{itemize}
 
 \subsection{Kcachegrind}
-\label{subsec:kcachegrind}
+\label{sec:kcachegrind}
 
-As mentioned in \ref{subsec:callgrind}, \textit{Kcachegrind} is the GUI for callgrind. The main features of \textit{Kcachegrind} are as follow:
+As mentioned in \cref{sec:callgrind}, kcachegrind is the GUI for callgrind. The main features of kcachegrind are as follow:
 
 \begin{itemize}
-    \item \textbf{Multiple Event Types}: \textit{Kcachegrind} visualizes all event types that \textit{callgrind} supports and enables switching between those events at ease. An example is shown in \ref{fig:kcachegrind_caller_callee}.
+    \item \textbf{Multiple Event Types}: Kcachegrind visualizes all event types that \textit{callgrind} supports and enables switching between those events at ease. An example is shown in \cref{fig:kcachegrind_1}.
     
-    \item \textbf{Interactive Call Graph}: Call graph is visualized in \textit{Kcachegrind} in an interactive way. Namely, users can not only click on nodes and edges for detailed information, but also use filter to focus on functions of interest. Fig \ref{fig:kcachegrind_treemaps_and_callgraphs} provides an example.
+    \item \textbf{Interactive Call Graph}: Call graph is visualized in kcachegrind in an interactive way. Namely, users can not only click on nodes and edges for detailed information, but also use filter to focus on functions of interest. \Cref{fig:kcachegrind_1} provides an example.
     
-    \item \textbf{Source Code/Assembly Annotations}: Metrics of specific event for each line of source code and assembly are annotated right next to each of them. This way, users know, for examples caller-callee relations at the granularity of instruction level or loop structures, without any effort. Fig \ref{fig:kcachegrind_pos_annotations} is an example.
+    \item \textbf{Source Code/Assembly Annotations}: Metrics of specific event for each line of source code and assembly are annotated right next to each of them. This way, users know, for examples caller-callee relations at the granularity of instruction level or loop structures, without any effort. \Cref{fig:kcachegrind_pos_annotations} is an example.
 \end{itemize}
 
-\begin{figure}
+\medskip
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.65\linewidth]{figures/kcachegrind_caller_callee.png}
-    \caption{Lists of event types and callers/callees in Kcachegrind~\cite{kcachegrind}}
-    \label{fig:kcachegrind_caller_callee}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/kcachegrind_caller_callee.png}
+    \end{minipage}\hfill
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/kcachegrind_callgraph.png}
+    \end{minipage}
+    \caption{Features of kcachegrind~\cite{kcachegrind}. Left: Lists of event types and callers/callees. Right: Treemaps and callgraphs}
+    \label{fig:kcachegrind_1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.65\linewidth]{figures/kcachegrind_callgraph.png}
-    \caption{Treemaps and callgraphs in Kcachegrind~\cite{kcachegrind}}
-    \label{fig:kcachegrind_treemaps_and_callgraphs}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.65\linewidth]{figures/kcachegrind_pos_annotation.png}
-    \caption{Position annotations in Kcachegrind~\cite{kcachegrind}}
+    \includegraphics[width=0.5\linewidth]{figures/kcachegrind_pos_annotation.png}
+    \caption{Position annotations in kcachegrind~\cite{kcachegrind}}
     \label{fig:kcachegrind_pos_annotations}
 \end{figure}
